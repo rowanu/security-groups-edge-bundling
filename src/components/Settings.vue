@@ -26,16 +26,21 @@
               </div>
             </div>
           <div class="field">
-          <p>
-          Settings are saved using your browser's
-          <a href="https://developer.mozilla.org/en-US/docs/Web/API/window/localStorage">local
-            storage</a>, not remotely.
-          </p>
-          <p>
-          You can review <a
-             href="https://github.com/rowanu/security-groups-edge-bundling">the
-             source code on GitHub</a>.
-          </p>
+            <p>
+            To create a dedicated user with access keys to limit access to
+            your account, watch <a
+            href="https://www.youtube.com/watch?v=K6PYOGcoPyY"
+            target="_blank">this video</a>.
+            </p>
+            <p>
+            Settings are saved using your browser's <a
+            href="https://developer.mozilla.org/en-US/docs/Web/API/window/localStorage"
+            target="_blank">local storage</a>, not remotely.
+            </p>
+            <p>
+            You can review <a href="https://github.com/rowanu/security-groups-edge-bundling"
+              target="_blank">the source code on GitHub</a>.
+            </p>
           </div>
         </section>
         <footer class="modal-card-foot">
