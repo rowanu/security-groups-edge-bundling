@@ -33,7 +33,7 @@
           </p>
           <p>
           You can review <a
-             href="https://github.com/rowanu/security-groups-edge-bundle">the
+             href="https://github.com/rowanu/security-groups-edge-bundling">the
              source code on GitHub</a>.
           </p>
           </div>
