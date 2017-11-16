@@ -1,0 +1,102 @@
+---
+Parameters:
+
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+
+Resources:
+
+  WebLoadBalancerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: WebLoadBalancer
+      GroupDescription: Web load balancer
+      VpcId: !Ref VpcId
+
+  WebSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: Web
+      GroupDescription: Web instances
+      VpcId: !Ref VpcId
+
+  AppLoadBalancerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: AppLoadBalancer
+      GroupDescription: Application load balancer
+      VpcId: !Ref VpcId
+
+  AppSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: App
+      GroupDescription: Application instances
+      VpcId: !Ref VpcId
+
+  DatabaseSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: Database
+      GroupDescription: Database instances
+      VpcId: !Ref VpcId
+
+  WebLoadBalancerSecurityGroupIngressHttps:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      CidrIp: 0.0.0.0/0
+      Description: Web load balancer
+      FromPort: 443
+      GroupId: !Ref WebLoadBalancerSecurityGroup
+      IpProtocol: tcp
+      ToPort: 443
+
+  WebLoadBalancerSecurityGroupIngressHttp:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      CidrIp: 0.0.0.0/0
+      Description: Web load balancer
+      FromPort: 80
+      GroupId: !Ref WebLoadBalancerSecurityGroup
+      IpProtocol: tcp
+      ToPort: 80
+
+  WebSecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      Description: Web
+      FromPort: 443
+      GroupId: !Ref WebSecurityGroup
+      IpProtocol: tcp
+      SourceSecurityGroupId: !Ref WebLoadBalancerSecurityGroup
+      ToPort: 443
+
+  AppLoadBalancerSecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      Description: App load balancer
+      FromPort: 8080
+      GroupId: !Ref AppLoadBalancerSecurityGroup
+      IpProtocol: tcp
+      SourceSecurityGroupId: !Ref WebSecurityGroup
+      ToPort: 8080
+
+  AppSecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      Description: App
+      FromPort: 8080
+      GroupId: !Ref AppSecurityGroup
+      IpProtocol: tcp
+      SourceSecurityGroupId: !Ref AppLoadBalancerSecurityGroup
+      ToPort: 8080
+
+  DatabaseSecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      Description: MySQL
+      FromPort: 3306
+      GroupId: !Ref DatabaseSecurityGroup
+      IpProtocol: tcp
+      SourceSecurityGroupId: !Ref AppSecurityGroup
+      ToPort: 3306
